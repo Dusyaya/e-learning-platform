@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @course %>
+
+<div style="display: flex; flex-direction: column;">
+  <% if !@user_subscribe_course %>
+    <%= link_to "Записаться", user_course_register_path(@course) %>
+  <% else %>
+    <%= link_to "Отписаться", user_course_unregister_path(@course) %>
+  <% end %>
+  <%= link_to "Отредактировать информацию о курсе", edit_course_path(@course) %>
+  <%= link_to "Вернуться ко всем курсам", courses_path %>
+
+  <%= button_to "Удалить курс", @course, method: :delete %>
+</div>

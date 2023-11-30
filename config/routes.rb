@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'user_course/register/:id', to: 'user_course#register', as: :user_course_register
+  get 'user_course/unregister/:id', to: 'user_course#unregister', as: :user_course_unregister
+  get 'courses/my', to: 'courses#show_my', as: :courses_my
+  resources :courses
 
   devise_for :users, controllers: {
     registrations: 'users/registrations'

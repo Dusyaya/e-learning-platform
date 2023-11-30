@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+
+<%= button_to 'Мой профиль', courses_my_path, method: :get %>
+<h1>Все курсы</h1>
+
+<div class="search">
+  <%= form_for :search, url: courses_path, method: :get do |f| %>
+
+    <div>
+      <%= f.label :name, style: "display: block" %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div>
+      <%= f.label :description, style: "display: block" %>
+      <%= f.text_field :description %>
+    </div>
+
+    <div>
+      <%= f.label :price, style: "display: block" %>
+      <%= f.text_field :price %>
+    </div>
+
+    <div>
+      <%= f.label :author, style: "display: block" %>
+      <%= f.text_field :author %>
+    </div>
+
+    <%= f.submit "Search" %>
+  <% end %>
+  <%= button_to 'Clear', courses_path, method: :get %>
+</div>
+
+<div id="courses">
+  <% @courses.each do |course| %>
+    <%= render course %>
+    <p>
+      <%= link_to "Узнать подробнее", course %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "Создать новый курс", new_course_path %>
