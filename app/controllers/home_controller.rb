@@ -3,5 +3,4 @@ class HomeController < ApplicationController
   def index
       redirect_to courses_path
   end
-  end
-  
+end

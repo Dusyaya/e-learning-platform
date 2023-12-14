@@ -29,14 +29,31 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
     @course = Course.new
+    begin
+      authorize @course
+    rescue Pundit::NotAuthorizedError
+      redirect_to courses_path, notice: 'Недостаточно прав'
+    end
   end
 
   # GET /courses/1/edit
   def edit
+    begin
+      authorize @course
+    rescue Pundit::NotAuthorizedError
+      redirect_to courses_path, notice: 'Недостаточно прав'
+    end
   end
 
   # POST /courses or /courses.json
   def create
+    begin
+      authorize Course
+    rescue Pundit::NotAuthorizedError
+      redirect_to courses_path, notice: 'Недостаточно прав'
+      return
+    end
+
     @course = Course.new(course_params)
 
     respond_to do |format|
@@ -52,6 +69,13 @@ class CoursesController < ApplicationController
 
   # PATCH/PUT /courses/1 or /courses/1.json
   def update
+    begin
+      authorize @course
+    rescue Pundit::NotAuthorizedError
+      redirect_to courses_path, notice: 'Недостаточно прав'
+      return
+    end
+
     respond_to do |format|
       if @course.update(course_params)
         format.html { redirect_to course_url(@course), notice: "Course was successfully updated." }
@@ -65,6 +89,13 @@ class CoursesController < ApplicationController
 
   # DELETE /courses/1 or /courses/1.json
   def destroy
+    begin
+      authorize @course
+    rescue Pundit::NotAuthorizedError
+      redirect_to courses_path, notice: 'Недостаточно прав'
+      return
+    end
+
     @course.destroy!
 
     respond_to do |format|
